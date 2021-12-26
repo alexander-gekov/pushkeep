@@ -1,85 +1,74 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
+import { Home } from "../pages/Home";
+import { Saved } from "../pages/Saved";
+import { SMS } from "../pages/SMS";
+import { Channels } from "../pages/Channels";
+import { Profile } from "../pages/Profile";
 
-interface Props {}
+const Tab = createBottomTabNavigator();
 
-const NavBar = (props: Props) => {
+const NavBar = () => {
   return (
-    <View
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        paddingHorizontal: "2%",
-        paddingTop: "3%",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        height: "12%",
-        width: "100%",
-        backgroundColor: "#fff8f8",
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: "#FF056E",
       }}
     >
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "20%",
-          alignItems: "center",
-          justifyContent: "center",
+      <Tab.Screen
+        name="Push"
+        component={Home}
+        options={{
+          headerTitle: "Push",
+          tabBarIcon: ({ color }) => (
+            <Icon name="send" type="material" color={color}></Icon>
+          ),
         }}
-      >
-        <Icon name="send" type="material" color="#FF056E" />
-        <Text>Push</Text>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "20%",
-          alignItems: "center",
-          justifyContent: "center",
+      />
+      <Tab.Screen
+        name="Saved"
+        component={Saved}
+        options={{
+          headerTitle: "Saved",
+          tabBarIcon: ({ color }) => (
+            <Icon name="bookmark-border" type="material" color={color}></Icon>
+          ),
         }}
-      >
-        <Icon name="bookmark-border" type="material" color="#FF056E" />
-        <Text>Saved</Text>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "20%",
-          alignItems: "center",
-          justifyContent: "center",
+      />
+      <Tab.Screen
+        name="SMS"
+        component={SMS}
+        options={{
+          headerTitle: "SMS",
+          tabBarIcon: ({ color }) => (
+            <Icon name="sms" type="material" color={color}></Icon>
+          ),
         }}
-      >
-        <Icon name="sms" type="material" color="#FF056E" />
-        <Text>SMS</Text>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "20%",
-          alignItems: "center",
-          justifyContent: "center",
+      />
+      <Tab.Screen
+        name="Channels"
+        component={Channels}
+        options={{
+          headerTitle: "Channels",
+          tabBarIcon: ({ color }) => (
+            <Icon name="rss-feed" type="material" color={color}></Icon>
+          ),
         }}
-      >
-        <Icon name="rss-feed" type="material" color="#FF056E" />
-        <Text>Channels</Text>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "20%",
-          alignItems: "center",
-          justifyContent: "center",
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerTitle: "Profile",
+          tabBarIcon: ({ color }) => (
+            <Icon name="account-circle" type="material" color={color}></Icon>
+          ),
         }}
-      >
-        <Icon name="account-circle" type="material" color="#FF056E" />
-        <Text>Profile</Text>
-      </View>
-    </View>
+      />
+    </Tab.Navigator>
   );
 };
 
