@@ -1,0 +1,24 @@
+type Channel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  Messages: [Message] @manyToMany(relationName: "ChannelMessage")
+  userID: ID @index(name: "byUser")
+}
+
+type Message @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  type: String
+  sender: ID
+  content: String!
+  isDeleted: Boolean
+  deletedOn: AWSDateTime
+  channels: [Channel] @manyToMany(relationName: "ChannelMessage")
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  imageUri: String
+  membership: Boolean
+  Channels: [Channel] @hasMany(indexName: "byUser", fields: ["id"])
+}

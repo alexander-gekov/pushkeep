@@ -1,0 +1,28 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pushkeep-staging-221445-authRole",
+      "UnauthRoleArn": "arn:aws:iam::286938589922:role/amplify-pushkeep-staging-221445-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::286938589922:role/amplify-pushkeep-staging-221445-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-pushkeep-staging-221445-deployment",
+      "UnauthRoleName": "amplify-pushkeep-staging-221445-unauthRole",
+      "StackName": "amplify-pushkeep-staging-221445",
+      "StackId": "arn:aws:cloudformation:eu-central-1:286938589922:stack/amplify-pushkeep-staging-221445/388d0250-7007-11ec-b395-061e1242e038",
+      "AmplifyAppId": "ddr4uaj9a3jmi",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-pushkeep-staging-221445-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "PushKeep": {}
+      },
+      "function": {
+        "PushKeepPostConfirmation": {
+          "deploymentBucketName": "amplify-pushkeep-staging-221445-deployment",
+          "s3Key": "amplify-builds/PushKeepPostConfirmation-6e374944345945464b34-build.zip",
+          "usertable": "User-en2r6zxrlvatplvbe3ubxiy5tu-staging"
+        }
+      }
+    }
+  }
+}

@@ -4,14 +4,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Landing } from "./components/auth/Landing";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Button, Icon, ThemeProvider } from "react-native-elements";
-import { Home } from "./components/pages/Home";
-import { useColorScheme } from "react-native";
-import { Saved } from "./components/pages/Saved";
-import { SMS } from "./components/pages/SMS";
-import { Channels } from "./components/pages/Channels";
-import { Profile } from "./components/pages/Profile";
+import { ThemeProvider } from "react-native-elements";
 import NavBar from "./components/shared/NavBar";
+import Amplify from "aws-amplify";
+// @ts-ignore
+import { withAuthenticator } from "aws-amplify-react-native";
+import config from "./src/aws-exports";
+
+Amplify.configure(config);
 
 const Stack = createNativeStackNavigator();
 
@@ -39,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withAuthenticator(App);
