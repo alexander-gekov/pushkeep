@@ -1,42 +1,49 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { Landing } from "./components/auth/Landing";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "react-native-elements";
-import NavBar from "./components/shared/NavBar";
-import Amplify from "aws-amplify";
-// @ts-ignore
-import { withAuthenticator } from "aws-amplify-react-native";
+import Amplify, { Auth, Hub } from "aws-amplify";
 import config from "./src/aws-exports";
+// @ts-ignore
+import { Authenticator } from "aws-amplify-react-native";
+import NavigationStack from "./NavigationStack";
+import { SignIn } from "./components/auth/SignIn";
 
 Amplify.configure(config);
 
-const Stack = createNativeStackNavigator();
+const App = ({ navigation }: any) => {
+  const [user, setUser] = useState(null);
 
-const App = () => {
-  return (
+  useEffect(() => {
+    Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+          setUser(data);
+          console.log(data);
+          break;
+        case "signOut":
+          setUser(null);
+          break;
+      }
+    });
+    Auth.currentAuthenticatedUser()
+      .then((user) => setUser(user))
+      .catch(() => console.log("Not signed in"));
+  }, []);
+
+  return user ? (
     <SafeAreaProvider>
       <ThemeProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="NavBar">
-            <Stack.Screen
-              name="Landing"
-              component={Landing}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="NavBar"
-              component={NavBar}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <NavigationStack />
         <StatusBar style="dark" />
       </ThemeProvider>
     </SafeAreaProvider>
+  ) : (
+    <Authenticator authState="signIn" hideDefault={true}>
+      <SignIn></SignIn>
+      <StatusBar backgroundColor="#FF0743"></StatusBar>
+    </Authenticator>
   );
 };
 
-export default withAuthenticator(App);
+export default App;

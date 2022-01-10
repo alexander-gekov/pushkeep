@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Image, Pressable } from "react-native";
 import { Auth } from "aws-amplify";
 
-interface Props {}
+export const Profile = (props: any) => {
+  const [user, setUser] = useState({ email: "", name: "", picture: "" });
 
-export const Profile = (props: Props) => {
+  useEffect(() => {
+    try {
+      Auth.currentAuthenticatedUser().then((user) => setUser(user));
+      Auth.currentSession().then((session) =>
+        setUser({
+          email: session.getIdToken().payload.email,
+          name: session.getIdToken().payload.name,
+          picture:
+            session
+              .getIdToken()
+              .payload.picture.substring(
+                0,
+                session.getIdToken().payload.picture.length - 5
+              ) + "s500",
+        })
+      );
+    } catch (e) {
+      Auth.signOut({ global: true });
+    }
+  }, []);
+
   const signOut = () => {
-    Auth.signOut();
+    Auth.signOut({ global: true });
   };
 
   return (
@@ -32,7 +53,9 @@ export const Profile = (props: Props) => {
               marginRight: 25,
             }}
             source={{
-              uri: "https://images.unsplash.com/photo-1447194047554-cfe888edc98c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+              uri:
+                user.picture ||
+                "https://www.contextbv.com/wp-content/uploads/2020/03/Person-placeholder.jpg",
             }}
           />
           <View
@@ -43,7 +66,7 @@ export const Profile = (props: Props) => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 5 }}>
-              Victoria Smith
+              {user.name}
             </Text>
             <Text
               style={{
@@ -52,7 +75,7 @@ export const Profile = (props: Props) => {
                 textDecorationLine: "underline",
               }}
             >
-              victoria.smith@yahoo.com
+              {user.email}
             </Text>
             <View
               style={{
@@ -91,3 +114,6 @@ export const Profile = (props: Props) => {
     </View>
   );
 };
+function substring(picture: string): string | undefined {
+  throw new Error("Function not implemented.");
+}

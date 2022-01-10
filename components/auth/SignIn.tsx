@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, Alert, ActivityIndicator, Linking } from "react-native";
+import React, { useState } from "react";
+import { Text, View, ActivityIndicator, Linking, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
-import * as AppleAuthentication from "expo-apple-authentication";
-import { Button, Image } from "react-native-elements";
+import { Image } from "react-native-elements";
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "../../src/aws-exports";
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
+import { ScreenWidth } from "react-native-elements/dist/helpers";
+Amplify.configure(awsconfig);
 
-interface Props {
-  navigation: any;
-}
-
-WebBrowser.maybeCompleteAuthSession();
-
-export const Landing = (props: Props) => {
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId:
-      "619586198793-jqn909j3vibfu6ra8t95rvan4julheaq.apps.googleusercontent.com",
-  });
-
-  useEffect(() => {
-    if (response?.type === "success") {
-      const { authentication } = response;
-      props.navigation.navigate("Home");
-      console.log(response);
-    }
-  }, [response]);
-
+export const SignIn = (props: any) => {
   return (
     <View
       style={{
@@ -40,11 +23,12 @@ export const Landing = (props: Props) => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          marginTop: -50,
         }}
       >
         <Image
           source={require("../../assets/background.png")}
-          style={{ height: 300, width: 390 }}
+          style={{ height: 300, width: ScreenWidth }}
           PlaceholderContent={<ActivityIndicator />}
         ></Image>
         <View
@@ -93,35 +77,21 @@ export const Landing = (props: Props) => {
           name="google"
           color="#000"
           backgroundColor="#fff"
-          disabled={!request}
           onPress={() => {
-            promptAsync();
+            try {
+              Auth.federatedSignIn({
+                provider: CognitoHostedUIIdentityProvider.Google,
+              }).then((user) => console.log(user));
+              props.authState === "signedIn";
+            } catch (e) {
+              console.log(e);
+            }
           }}
         >
           <Text style={{ fontSize: 20, fontWeight: "600" }}>
             Sign in with Google
           </Text>
         </Icon.Button>
-        <AppleAuthentication.AppleAuthenticationButton
-          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-          cornerRadius={5}
-          style={{ width: 250, height: 50 }}
-          onPress={async () => {
-            try {
-              const credential = await AppleAuthentication.signInAsync({
-                requestedScopes: [
-                  AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                  AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                ],
-              });
-              console.log(credential);
-              props.navigation.navigate("Home");
-            } catch (e: any) {
-              console.log(e);
-            }
-          }}
-        />
       </View>
       <View
         style={{

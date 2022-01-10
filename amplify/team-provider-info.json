@@ -19,8 +19,7 @@
       "function": {
         "PushKeepPostConfirmation": {
           "deploymentBucketName": "amplify-pushkeep-staging-221445-deployment",
-          "s3Key": "amplify-builds/PushKeepPostConfirmation-6e374944345945464b34-build.zip",
-          "usertable": "User-en2r6zxrlvatplvbe3ubxiy5tu-staging"
+          "s3Key": "amplify-builds/PushKeepPostConfirmation-49485151636f6a48766e-build.zip"
         }
       }
     }
