@@ -1,113 +1,103 @@
 import React from "react";
 import { StyleSheet, Image, Text, View, ImageBackground } from "react-native";
+import * as Linking from "expo-linking";
+import { Icon } from "react-native-elements";
 
 export default function LinkCard() {
   return (
-    <View style={styles.LinkCard}>
-      <View style={styles.Group424}>
-        <View style={styles.PhoneIcon}>
-          <Image
-            style={styles.Phone_android}
-            source={{
-              uri: "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/22dc/4f82/3192a8c13371eb0b0d986216d066fb65",
-            }}
-          />
+    <View
+      style={{
+        minWidth: "100%",
+        maxWidth: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
+    >
+      <View style={styles.PhoneIcon}>
+        <Icon name="smartphone" type="material" color="white" size={21}></Icon>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          paddingVertical: 7,
+          paddingHorizontal: 10,
+          borderRadius: 7,
+          backgroundColor: "rgba(196,196,196,1)",
+          marginLeft: 5,
+          marginRight: 10,
+        }}
+      >
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.Txt548}>
+            20 best tailwind landing page templates
+          </Text>
         </View>
-        <View style={styles.Container}>
-          <View style={styles.Group3}>
-            <Text style={styles.Txt548}>
-              20 best tailwind landing page templates
-            </Text>
-            <Text style={styles.Txt7310}>https://www.pushkeep.com</Text>
-          </View>
-        </View>
-        <View style={styles.Group035}>
-          <Image
-            style={styles.Delete}
-            source={{
-              uri: "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/7f00/ce49/f093d7bdc20087368de3cbb943ce7aa9",
-            }}
-          />
-          <Image
-            style={styles.Share}
-            source={{
-              uri: "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/b3e9/c930/cc601505a77eec30f605487364a297f8",
-            }}
-          />
-        </View>
+        <Text
+          style={styles.Txt7310}
+          onPress={() => Linking.openURL("https://www.pushkeep.com")}
+        >
+          https://www.pushkeep.com
+        </Text>
+      </View>
+      <View style={{ flexDirection: "column" }}>
+        <Icon
+          style={{ marginBottom: 6 }}
+          size={30}
+          name="share"
+          type="material"
+          color="lightgray"
+        ></Icon>
+        <Icon size={30} name="delete" type="material" color="lightgray"></Icon>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  LinkCard: {
-    width: "342px",
-    height: "79px",
-  },
-  Group424: {
-    display: "flex",
-    flexDirection: "row",
-  },
   PhoneIcon: {
     paddingTop: 4,
     paddingBottom: 5,
     paddingLeft: 4,
     paddingRight: 5,
-    marginRight: "10px",
+    marginRight: 10,
     borderRadius: 100,
     backgroundColor: "rgba(100,100,100,1)",
-    width: "32px",
-    height: "32px",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 32,
+    height: 32,
   },
-  Phone_android: {
-    width: "21px",
-    height: "21px",
-  },
-
-  Container: {
-    paddingTop: 7,
-    paddingBottom: 6,
-    paddingLeft: 10,
-    paddingRight: 7,
-    marginRight: "6px",
-    borderRadius: 7,
-    backgroundColor: "rgba(196,196,196,1)",
-    width: "270px",
-    height: "79px",
-  },
+  Container: {},
   Group3: {
     display: "flex",
     flexDirection: "column",
   },
   Txt548: {
-    fontSize: 18,
-    fontFamily: "Roboto, sans-serif",
+    flex: 1,
+    flexWrap: "wrap",
+    fontSize: 20,
     fontWeight: "700",
     color: "rgba(0,0,0,1)",
-    width: "250px",
-    marginBottom: "6px",
+    marginBottom: 6,
   },
   Txt7310: {
-    fontSize: 14,
-    fontFamily: "Roboto, sans-serif",
+    fontSize: 16,
     fontWeight: "400",
-    color: "rgba(0,0,0,1)",
-    width: "250px",
+    color: "blue",
     textDecorationLine: "underline",
   },
-
   Group035: {
     display: "flex",
     flexDirection: "column",
   },
   Delete: {
-    width: "24px",
-    height: "24px",
-    marginBottom: "6px",
+    width: 24,
+    height: 24,
+    marginBottom: 6,
   },
   Share: {
-    width: "24px",
-    height: "24px",
+    width: 24,
+    height: 24,
   },
 });

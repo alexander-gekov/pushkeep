@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import LinkCard from "../components/LinkCard";
 
 interface Props {
@@ -14,7 +14,16 @@ export const Saved = (props: Props) => {
       }}
     >
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Saved Page</Text>
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            alignItems: "center",
+            marginTop: 15,
+            marginHorizontal: 15,
+          }}
+        >
+          <LinkCard></LinkCard>
+        </ScrollView>
       </View>
     </View>
   );
