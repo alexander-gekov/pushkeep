@@ -1,15 +1,23 @@
 import React from "react";
-import { StyleSheet, Image, Text, View, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import * as Linking from "expo-linking";
-import { Icon } from "react-native-elements";
+import { Icon, Image } from "react-native-elements";
 
-export default function LinkCard() {
+export default function ImageCard() {
   return (
     <View
       style={{
         minWidth: "100%",
         maxWidth: "100%",
         flexDirection: "row",
+        justifyContent: "space-between",
         marginBottom: 10,
       }}
     >
@@ -26,19 +34,16 @@ export default function LinkCard() {
           backgroundColor: "rgba(196,196,196,1)",
           marginLeft: 5,
           marginRight: 10,
+          maxHeight: "70%",
         }}
       >
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.Txt548}>
-            20 best tailwind landing page templates
-          </Text>
-        </View>
-        <Text
-          style={styles.Txt7310}
-          onPress={() => Linking.openURL("https://www.pushkeep.com")}
-        >
-          https://www.pushkeep.com
-        </Text>
+        <Image
+          style={{ width: "100%", height: "100%" }}
+          source={{
+            uri: "https://images.unsplash.com/photo-1642365585811-17521651de66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+          }}
+          PlaceholderContent={<ActivityIndicator />}
+        ></Image>
       </View>
       <View style={{ flexDirection: "column" }}>
         <Icon

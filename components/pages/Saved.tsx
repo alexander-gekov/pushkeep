@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
+import ImageCard from "../components/ImageCard";
 import LinkCard from "../components/LinkCard";
 
 interface Props {
@@ -23,6 +24,7 @@ export const Saved = (props: Props) => {
           }}
         >
           <LinkCard></LinkCard>
+          <ImageCard></ImageCard>
         </ScrollView>
       </View>
     </View>
