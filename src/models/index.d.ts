@@ -34,13 +34,14 @@ export declare class Channel {
 export declare class Message {
   readonly id: string;
   readonly type?: string;
-  readonly sender?: string;
   readonly content: string;
   readonly isDeleted?: boolean;
   readonly deletedOn?: string;
   readonly channels?: (ChannelMessage | null)[];
+  readonly sender?: User;
   readonly createdAt?: string;
   readonly updatedAt?: string;
+  readonly messageSenderId?: string;
   constructor(init: ModelInit<Message, MessageMetaData>);
   static copyOf(source: Message, mutator: (draft: MutableModel<Message, MessageMetaData>) => MutableModel<Message, MessageMetaData> | void): Message;
 }
@@ -48,9 +49,10 @@ export declare class Message {
 export declare class User {
   readonly id: string;
   readonly name: string;
-  readonly imageUri?: string;
+  readonly email?: string;
   readonly membership?: boolean;
   readonly Channels?: (Channel | null)[];
+  readonly imageUri?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User, UserMetaData>);

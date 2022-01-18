@@ -106,13 +106,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "sender": {
-                    "name": "sender",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "content": {
                     "name": "content",
                     "isArray": false,
@@ -148,6 +141,20 @@ export const schema = {
                         "associatedWith": "message"
                     }
                 },
+                "sender": {
+                    "name": "sender",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": "id",
+                        "targetName": "messageSenderId"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -163,6 +170,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
+                },
+                "messageSenderId": {
+                    "name": "messageSenderId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -207,8 +221,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "imageUri": {
-                    "name": "imageUri",
+                "email": {
+                    "name": "email",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -234,6 +248,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "userID"
                     }
+                },
+                "imageUri": {
+                    "name": "imageUri",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -342,5 +363,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "5715e75d8b49543cb7f1c18d41f4fc30"
+    "version": "d189b7f159ecddd577bd525cc89f4c74"
 };

@@ -1,28 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View, Image, Pressable } from "react-native";
-import { Auth } from "aws-amplify";
+import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
+import awsConfig from "../../src/aws-exports";
+import { User } from "../../src/models";
+import { getUser } from "../../src/graphql/queries";
+import AppContext from "../../utils/AppContext";
+
+Amplify.configure(awsConfig);
 
 export const Profile = (props: any) => {
-  const [user, setUser] = useState({ email: "", name: "", picture: "" });
+  const [user, setUser] = useState({} as User);
+  const { userId } = useContext(AppContext);
+
+  const fetchUser = async (id: string) => {
+    try {
+      const response = await API.graphql(graphqlOperation(getUser, { id: id }));
+      return response;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     try {
-      Auth.currentAuthenticatedUser().then((user) => setUser(user));
-      Auth.currentSession().then((session) =>
-        setUser({
-          email: session.getIdToken().payload.email,
-          name: session.getIdToken().payload.name,
-          picture:
-            session
-              .getIdToken()
-              .payload.picture.substring(
-                0,
-                session.getIdToken().payload.picture.length - 5
-              ) + "s500",
-        })
-      );
+      //fetch user
+      fetchUser(userId).then((response) => {
+        if (response) {
+          // @ts-ignore
+          const user = response.data.getUser as User;
+          setUser(user);
+        }
+      });
     } catch (e) {
-      Auth.signOut({ global: true });
+      console.log(e);
     }
   }, []);
 
@@ -54,7 +64,7 @@ export const Profile = (props: any) => {
             }}
             source={{
               uri:
-                user.picture ||
+                user.imageUri ||
                 "https://www.contextbv.com/wp-content/uploads/2020/03/Person-placeholder.jpg",
             }}
           />
@@ -79,7 +89,7 @@ export const Profile = (props: any) => {
             </Text>
             <View
               style={{
-                backgroundColor: "#FF95AE",
+                backgroundColor: "#54B8F0",
                 borderRadius: 10,
                 height: 20,
                 width: 120,
@@ -87,8 +97,8 @@ export const Profile = (props: any) => {
                 alignItems: "center",
               }}
             >
-              <Text style={{ fontSize: 10, color: "#FF056E" }}>
-                PushKeep Premium
+              <Text style={{ fontSize: 10, color: "#0D3EEE" }}>
+                {user.membership ? "PushKeep Premium" : "PushKeep Free"}
               </Text>
             </View>
           </View>

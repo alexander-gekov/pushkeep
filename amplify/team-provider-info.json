@@ -14,12 +14,14 @@
     },
     "categories": {
       "auth": {
-        "PushKeep": {}
+        "PushKeep": {
+          "googleClientId": "619586198793-5su02lf36brsm632tu5iv16d3l1cog39.apps.googleusercontent.com"
+        }
       },
       "function": {
         "PushKeepPostConfirmation": {
           "deploymentBucketName": "amplify-pushkeep-staging-221445-deployment",
-          "s3Key": "amplify-builds/PushKeepPostConfirmation-49485151636f6a48766e-build.zip"
+          "s3Key": "amplify-builds/PushKeepPostConfirmation-4149714163716e427532-build.zip"
         }
       }
     }

@@ -1,12 +1,11 @@
 import React, { useRef, useState } from "react";
 import {
+  FlatList,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  TouchableWithoutFeedbackBase,
   View,
 } from "react-native";
 import { Button, Icon, Input } from "react-native-elements";
@@ -37,23 +36,14 @@ export const Home = (props: Props) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
-      <ScrollView
+      <FlatList
+        data={messages}
+        renderItem={({ item }) => <Card message={item}></Card>}
         showsVerticalScrollIndicator={true}
         indicatorStyle="black"
         keyboardDismissMode="on-drag"
         style={{ flex: 1, paddingHorizontal: 20, paddingVertical: 10 }}
-      >
-        {messages.map((message, index) => (
-          <Card
-            key={index}
-            message={{
-              text: message,
-              sender: "geka",
-              createdAt: "01-01-2022 10:00",
-            }}
-          />
-        ))}
-      </ScrollView>
+      />
       <View
         style={{
           display: "flex",

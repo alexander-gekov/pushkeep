@@ -3,11 +3,7 @@ import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 
 interface Props {
-  message: {
-    text: string;
-    sender: string;
-    createdAt: string;
-  };
+  message: string;
 }
 
 const Card = (props: Props) => {
@@ -45,7 +41,7 @@ const Card = (props: Props) => {
         }}
       >
         <Text style={{ display: "flex", flexWrap: "wrap" }}>
-          {props.message.text}
+          {props.message}
         </Text>
       </View>
       <View

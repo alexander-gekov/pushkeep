@@ -81,8 +81,9 @@ export const SignIn = (props: any) => {
             try {
               Auth.federatedSignIn({
                 provider: CognitoHostedUIIdentityProvider.Google,
-              }).then((user) => console.log(user));
-              props.authState === "signedIn";
+              }).then((user) => {
+                console.log("signed in");
+              });
             } catch (e) {
               console.log(e);
             }

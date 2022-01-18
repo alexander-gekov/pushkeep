@@ -75,15 +75,17 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"PushKeepPostConfirmation\"\n  }\n]",
     "permissions": [],
     "hostedUIDomainName": "pushkeep2468d7d8-2468d7d8",
     "authProvidersUserPool": [
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "authProviders": [],
+    "authProviders": [
+      "accounts.google.com"
+    ],
+    "thirdPartyAuth": true,
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"exp://192.168.2.1:19000/\"],\"LogoutURLs\":[\"exp://192.168.2.1:19000/\"]}",
-    "thirdPartyAuth": false
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"PushKeepPostConfirmation\"\n  }\n]"
   }
 }

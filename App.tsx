@@ -1,25 +1,32 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "react-native-elements";
 import Amplify, { Auth, Hub } from "aws-amplify";
 import config from "./src/aws-exports";
 // @ts-ignore
-import { Authenticator } from "aws-amplify-react-native";
+import { Authenticator, ConfirmSignUp } from "aws-amplify-react-native";
 import NavigationStack from "./NavigationStack";
 import { SignIn } from "./components/auth/SignIn";
+import AppContext from "./utils/AppContext";
 
-Amplify.configure(config);
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
 
 const App = ({ navigation }: any) => {
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     Hub.listen("auth", ({ payload: { event, data } }) => {
       switch (event) {
         case "signIn":
           setUser(data);
-          console.log(data);
+          setUserId(data.signInUserSession.accessToken.payload.sub);
           break;
         case "signOut":
           setUser(null);
@@ -27,15 +34,22 @@ const App = ({ navigation }: any) => {
       }
     });
     Auth.currentAuthenticatedUser()
-      .then((user) => setUser(user))
+      .then((user) => {
+        setUser(user);
+        if (user) {
+          setUserId(user.attributes.sub);
+        }
+      })
       .catch(() => console.log("Not signed in"));
   }, []);
 
   return user ? (
     <SafeAreaProvider>
       <ThemeProvider>
-        <NavigationStack />
-        <StatusBar style="dark" />
+        <AppContext.Provider value={{ userId, setUserId }}>
+          <NavigationStack />
+          <StatusBar style="dark" />
+        </AppContext.Provider>
       </ThemeProvider>
     </SafeAreaProvider>
   ) : (
