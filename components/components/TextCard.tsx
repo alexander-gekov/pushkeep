@@ -1,15 +1,23 @@
 import React from "react";
-import { StyleSheet, Image, Text, View, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import * as Linking from "expo-linking";
-import { Icon } from "react-native-elements";
+import { Icon, Image } from "react-native-elements";
 
-export default function LinkCard() {
+export default function TextCard() {
   return (
     <View
       style={{
         minWidth: "100%",
         maxWidth: "100%",
         flexDirection: "row",
+        justifyContent: "space-between",
         marginBottom: 10,
       }}
     >
@@ -28,12 +36,11 @@ export default function LinkCard() {
           marginRight: 10,
         }}
       >
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.Txt548}>
-            20 best tailwind landing page templates
-          </Text>
-        </View>
-        <Text style={styles.Txt7310}>https://www.pushkeep.com</Text>
+        <Text style={styles.Txt7310}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. At provident
+          ipsum similique ab eos accusamus suscipit alias exercitationem
+          assumenda iste.
+        </Text>
       </View>
       <View style={{ flexDirection: "column", alignSelf: "center" }}>
         <Icon
@@ -80,8 +87,7 @@ const styles = StyleSheet.create({
   Txt7310: {
     fontSize: 16,
     fontWeight: "400",
-    color: "blue",
-    textDecorationLine: "underline",
+    color: "black",
   },
   Group035: {
     display: "flex",

@@ -1,25 +1,38 @@
 import React from "react";
-import { StyleSheet, Image, Text, View, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import * as Linking from "expo-linking";
-import { Icon } from "react-native-elements";
+import { Icon, Image } from "react-native-elements";
 
-export default function LinkCard() {
+export default function FileCard() {
   return (
     <View
       style={{
         minWidth: "100%",
         maxWidth: "100%",
         flexDirection: "row",
+        justifyContent: "space-between",
         marginBottom: 10,
       }}
     >
       <View style={styles.PhoneIcon}>
-        <Icon name="smartphone" type="material" color="white" size={21}></Icon>
+        <Icon
+          name="desktop-windows"
+          type="material"
+          color="white"
+          size={18}
+        ></Icon>
       </View>
       <View
         style={{
           flex: 1,
-          flexDirection: "column",
+          flexDirection: "row",
           paddingVertical: 7,
           paddingHorizontal: 10,
           borderRadius: 7,
@@ -28,22 +41,23 @@ export default function LinkCard() {
           marginRight: 10,
         }}
       >
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.Txt548}>
-            20 best tailwind landing page templates
-          </Text>
-        </View>
-        <Text style={styles.Txt7310}>https://www.pushkeep.com</Text>
+        <Icon
+          size={18}
+          name="description"
+          style={{ marginRight: 10 }}
+          type="material"
+          color="gray"
+        ></Icon>
+        <Text style={styles.Txt7310}>homework.pdf</Text>
       </View>
       <View style={{ flexDirection: "column", alignSelf: "center" }}>
         <Icon
           style={{ marginBottom: 6 }}
           size={30}
-          name="share"
+          name="save-alt"
           type="material"
           color="lightgray"
         ></Icon>
-        <Icon size={30} name="delete" type="material" color="lightgray"></Icon>
       </View>
     </View>
   );
@@ -80,8 +94,7 @@ const styles = StyleSheet.create({
   Txt7310: {
     fontSize: 16,
     fontWeight: "400",
-    color: "blue",
-    textDecorationLine: "underline",
+    color: "black",
   },
   Group035: {
     display: "flex",

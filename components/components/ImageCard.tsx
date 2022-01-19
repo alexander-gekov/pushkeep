@@ -22,7 +22,12 @@ export default function ImageCard() {
       }}
     >
       <View style={styles.PhoneIcon}>
-        <Icon name="smartphone" type="material" color="white" size={21}></Icon>
+        <Icon
+          name="desktop-windows"
+          type="material"
+          color="white"
+          size={18}
+        ></Icon>
       </View>
       <View
         style={{
@@ -34,7 +39,7 @@ export default function ImageCard() {
           backgroundColor: "rgba(196,196,196,1)",
           marginLeft: 5,
           marginRight: 10,
-          maxHeight: "70%",
+          height: 300,
         }}
       >
         <Image
@@ -45,7 +50,7 @@ export default function ImageCard() {
           PlaceholderContent={<ActivityIndicator />}
         ></Image>
       </View>
-      <View style={{ flexDirection: "column" }}>
+      <View style={{ flexDirection: "column", alignSelf: "center" }}>
         <Icon
           style={{ marginBottom: 6 }}
           size={30}
@@ -69,6 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "rgba(100,100,100,1)",
     justifyContent: "center",
+    alignSelf: "center",
     alignItems: "center",
     width: 32,
     height: 32,

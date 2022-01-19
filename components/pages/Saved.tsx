@@ -1,32 +1,58 @@
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Dimensions, Platform, ScrollView, Text, View } from "react-native";
+import { Divider } from "react-native-elements";
+import FileCard from "../components/FileCard";
 import ImageCard from "../components/ImageCard";
 import LinkCard from "../components/LinkCard";
+import TextCard from "../components/TextCard";
 
 interface Props {
   navigation: any;
 }
 
 export const Saved = (props: Props) => {
+  const { height } = Dimensions.get("screen");
+
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ScrollView
-          contentContainerStyle={{
-            flex: 1,
-            alignItems: "center",
-            marginTop: 15,
-            marginHorizontal: 15,
+    <ScrollView>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          marginVertical: 15,
+          marginHorizontal: 15,
+        }}
+      >
+        <Divider
+          subHeaderStyle={{ marginBottom: 15, fontSize: 14, color: "gray" }}
+          subHeader="Jan 10, 8:03 PM"
+        ></Divider>
+        <LinkCard></LinkCard>
+        <ImageCard></ImageCard>
+        <Divider
+          subHeaderStyle={{
+            marginBottom: 20,
+            marginTop: 10,
+            fontSize: 14,
+            color: "gray",
           }}
-        >
-          <LinkCard></LinkCard>
-          <ImageCard></ImageCard>
-        </ScrollView>
+          subHeader="Jan 12, 10:21 AM"
+        ></Divider>
+        <TextCard></TextCard>
+        <FileCard></FileCard>
+        <LinkCard></LinkCard>
+        <Divider
+          subHeaderStyle={{
+            marginBottom: 20,
+            marginTop: 10,
+            fontSize: 14,
+            color: "gray",
+          }}
+          subHeader="Jan 13, 11:14 AM"
+        ></Divider>
+        <TextCard></TextCard>
+        <TextCard></TextCard>
       </View>
-    </View>
+    </ScrollView>
   );
 };
